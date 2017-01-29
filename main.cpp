@@ -18,7 +18,7 @@ int main()
         fprintf(stderr, "Failed to initialize GLFW\n");
         return -1;
     }
-    
+
     // Create a rendering window with OpenGL 3.2 context
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
@@ -55,19 +55,8 @@ int main()
     glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(Vert<float, 8>),
            &vertices[0], GL_STATIC_DRAW);
 
-    // Create and compile the fragment shader
-    const char* fragmentSource = GLSL(
-        uniform vec3 vertexColor;
 
-        in vec3 Color;
-        out vec4 outColor;
-
-        void main() {
-            outColor = vec4(vertexColor + Color, 1.0f);
-        }
-    );
-
-    // Create and compile the vertex shader
+    // Create the vertex shader
     const char* vertexSource = GLSL(
         in vec2 position;
         in vec3 color;
@@ -76,6 +65,18 @@ int main()
         void main() {
             Color = color;
             gl_Position = vec4(position, 0.0, 1.0);
+        }
+    );
+
+    // Create the fragment shader
+    const char* fragmentSource = GLSL(
+        uniform vec3 vertexColor;
+
+        in vec3 Color;
+        out vec4 outColor;
+
+        void main() {
+            outColor = vec4(vertexColor + Color, 1.0f);
         }
     );
 
@@ -104,10 +105,10 @@ int main()
         float adjfactor = sin(time) - 0.5f;
         glUniform3f(uniColor, adjfactor, adjfactor, adjfactor);
 
-		// Clear the screen to black
+        // Clear the screen to black
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        
+
         // Draw a triangle from the 3 vertices
         glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 
