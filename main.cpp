@@ -7,6 +7,7 @@
 #include <string>
 
 #include "glhelper.hpp"
+#include "verts.hpp"
 
 int main()
 {
@@ -42,16 +43,17 @@ int main()
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-    float vertices[] = {
-         0.5f, -0.5f, 1.0f, 0.0f, 0.0f, // Vertex 1: Red
-        -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, // Vertex 2: Green
-         0.5f,  0.5f, 0.0f, 1.0f, 0.0f, // Vertex 3: Green
-         0.5f, -0.5f, 1.0f, 0.0f, 0.0f, // Vertex 1: Red
-        -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, // Vertex 2: Green
-        -0.5f, -0.5f, 0.0f, 0.0f, 1.0f  // Vertex 3: Blue
+    vector<Vert<float, 5>> vertices = {
+        { 0.5f, -0.5f, 1.0f, 0.0f, 0.0f}, // Vertex 1: Red
+        {-0.5f,  0.5f, 0.0f, 1.0f, 0.0f}, // Vertex 2: Green
+        { 0.5f,  0.5f, 0.0f, 1.0f, 0.0f}, // Vertex 3: Green
+        { 0.5f, -0.5f, 1.0f, 0.0f, 0.0f}, // Vertex 1: Red
+        {-0.5f,  0.5f, 0.0f, 1.0f, 0.0f}, // Vertex 2: Green
+        {-0.5f, -0.5f, 0.0f, 0.0f, 1.0f}, // Vertex 3: Blue
     };
 
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(Vert<float, 8>),
+           &vertices[0], GL_STATIC_DRAW);
 
     // Create and compile the fragment shader
     const char* fragmentSource = GLSL(
@@ -107,7 +109,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
         
         // Draw a triangle from the 3 vertices
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 
         // Swap buffers and poll window events
         glfwSwapBuffers(window);
