@@ -49,10 +49,17 @@ int main()
         // X      Y     Z     R     G     B
         { 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f}, // Vertex 1: Red
         {-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f}, // Vertex 2: Green
-        { 0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f}, // Vertex 3: Green
-        { 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f}, // Vertex 1: Red
+        { 0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f}, // Vertex 3: Blue
+        { 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f}, // Vertex 1: Blue
         {-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f}, // Vertex 2: Green
-        {-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f}, // Vertex 3: Blue
+        {-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f}, // Vertex 3: Red
+
+        {-0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 0.0f}, // Vertex 4: Red
+        {-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f}, // Vertex 1: Blue
+        {-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f}, // Vertex 3: Green
+        {-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f}, // Vertex 3: Green
+        {-0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 1.0f}, // Vertex 2: Blue
+        {-0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 0.0f}, // Vertex 4: Red
     };
 
     glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(Vert<float, 6>),
@@ -77,13 +84,12 @@ int main()
 
     // Create the fragment shader
     const char* fragmentSource = GLSL(
-        uniform vec3 vertexColor;
 
         in vec3 Color;
         out vec4 outColor;
 
         void main() {
-            outColor = vec4(vertexColor + Color, 1.0f);
+            outColor = vec4(Color, 1.0f);
         }
     );
 
@@ -110,7 +116,7 @@ int main()
     glm::mat4 model = glm::mat4();
     glm::mat4 view = glm::lookAt(
             glm::vec3( 2.0f,  2.0f, 1.0f),
-            glm::vec3( 0.0f,  0.0f, 0.0f),
+            glm::vec3( 0.0f,  0.0f, 0.5f),
             glm::vec3( 0.0f,  0.0f, 1.0f)
         );
 
@@ -125,9 +131,6 @@ int main()
     {
         // Calculate new triangle alpha for current frame
         GLint uniColor = glGetUniformLocation(shaderProgram, "vertexColor");
-        float time = (float)glfwGetTime();
-        float adjfactor = (sin(time)/2) + 0.5f;
-        glUniform3f(uniColor, adjfactor, adjfactor, adjfactor);
 
         // Clear the screen to black
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

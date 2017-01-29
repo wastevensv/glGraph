@@ -26,7 +26,7 @@ using namespace std;
 // Format: 8 wide - [position xyz, texture xy, normal xyz]
 void loadOBJ(string path, vector<Vert<float, 8>> & out_vert) {
   cout << "Loading OBJ file " << path << "..." << endl;
-  
+
   ifstream in_file;
   in_file.open (path);
 
@@ -150,7 +150,7 @@ int makeShader(const char *vSource, const char *fSource, GLuint & shaderId) {
 
     // Compile fragment shader
     GLuint fragId = glCreateShader(GL_FRAGMENT_SHADER);
-    
+
     glShaderSource(fragId, 1, &fSource, NULL);
     glCompileShader(fragId);
     GLint fStatus;
