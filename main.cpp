@@ -50,16 +50,16 @@ int main()
         { 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f}, // Vertex 1: Red
         {-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f}, // Vertex 2: Green
         { 0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f}, // Vertex 3: Blue
-        { 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f}, // Vertex 1: Blue
+        { 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f}, // Vertex 1: Red
         {-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f}, // Vertex 2: Green
-        {-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f}, // Vertex 3: Red
+        {-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f}, // Vertex 4: Blue
 
-        {-0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 0.0f}, // Vertex 4: Red
-        {-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f}, // Vertex 1: Blue
-        {-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f}, // Vertex 3: Green
-        {-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f}, // Vertex 3: Green
-        {-0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 1.0f}, // Vertex 2: Blue
-        {-0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 0.0f}, // Vertex 4: Red
+        {-0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 0.0f}, // Vertex 1: Red
+        {-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f}, // Vertex 2: Green
+        {-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f}, // Vertex 3: Blue
+        {-0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 0.0f}, // Vertex 1: Red
+        {-0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f}, // Vertex 2: Green
+        {-0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 1.0f}, // Vertex 4: Blue
     };
 
     glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(Vert<float, 6>),
@@ -136,7 +136,7 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Draw a triangle from the 3 vertices
+        // Draw the vertices
         glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 
         // Swap buffers and poll window events
