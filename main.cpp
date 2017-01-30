@@ -58,7 +58,8 @@ int main()
     int size = 32;
     float res  = 0.5f;
     vector<Vert<float, 4>> vertices;
-    calcSurface(-(size*res)/2, -(size*res)/2, res, res, size, size, sinfunc, &vertices);
+    calcSurface(-(size*res)/2, -(size*res)/2, res, res,
+            size, size, sinfunc, &vertices);
     vector<int> elements;
     genIndicies(size,size,&elements);
 

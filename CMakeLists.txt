@@ -8,4 +8,4 @@ find_package( OpenGL REQUIRED )
 find_package( glfw3 REQUIRED )
 
 add_executable(glGraph  main.cpp)
-target_link_libraries(glGraph  SOIL epoxy ${OPENGL_LIBRARY} ${SOIL_LIBRARY} ${GLFW3_LIBRARY})
+target_link_libraries(glGraph  SOIL epoxy ${OPENGL_LIBRARY} ${GLFW3_LIBRARY})
