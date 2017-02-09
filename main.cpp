@@ -14,7 +14,7 @@
 using namespace std;
 
 float sinfunc(float x, float y) {
-    return x*x + y*y;
+    return sin(x) * sin(y);
 }
 
 int main()
